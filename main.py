@@ -6,10 +6,13 @@ import requests
 import google.generativeai as genai
 from gtts import gTTS
 import pygame
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
-newsapi = "NEWS_API_KEY"
+newsapi = os.getenv("NEWS_API_KEY")
 
 def speak_old(text):
     engine.say(text)
@@ -29,7 +32,7 @@ def speak(text):
     pygame.mixer.music.unload()
     os.remove("temp.mp3")
 
-genai.configure(api_key="GEMINI_API_KEY")
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 model = genai.GenerativeModel("gemini-2.5-flash-lite")
 def aiProcess(command):
